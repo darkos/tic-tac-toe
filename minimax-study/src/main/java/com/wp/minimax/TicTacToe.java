@@ -13,6 +13,8 @@ public class TicTacToe {
     public final static char PLAYER_X = 'x';
     public final static char PLAYER_O = 'o';
     public final static char NEW_LINE = '\n';
+    public final static int PLAYER_X_ID = 1;
+    public final static int PLAYER_O_ID = 0;
     
     public void printNextMoves() {
 
@@ -75,6 +77,31 @@ public class TicTacToe {
         }
         // System.out.println("combs:" + combs);
         return combs;
+    }
+
+    public int getPlayerId(char player) {
+        if(player == PLAYER_O) {
+            return PLAYER_O_ID;
+        }
+        return PLAYER_X_ID;
+    }
+
+    public boolean playerIsWinning(char player, int[][] board) {
+        int id = this.getPlayerId(player);
+        if(
+            (board[0][0] == id && board[0][1] == id && board[0][2] == id) ||
+            (board[1][0] == id && board[1][1] == id && board[1][2] == id) || 
+            (board[2][0] == id && board[2][1] == id && board[2][2] == id) ||
+            (board[0][0] == id && board[1][0] == id && board[2][0] == id) ||
+            (board[0][1] == id && board[1][1] == id && board[2][1] == id) ||
+            (board[0][2] == id && board[1][2] == id && board[2][2] == id) ||
+            (board[0][0] == id && board[1][1] == id && board[2][2] == id) ||
+            (board[2][0] == id && board[1][1] == id && board[0][2] == id)
+            )
+            {
+                return true;
+            }
+        return false;
     }
 
 
