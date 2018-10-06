@@ -1,22 +1,22 @@
 package com.wp.minimax;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
-public class AppTestSampleBoardsTest {
+public class AppTestSampleBoardsTestNg {
 
     TicTacToe ttt;
 
-    @Before
+    @BeforeTest
     public void setUp() {
         ttt = new TicTacToe();
     }
 
-    @After
+    @AfterTest
     public void clean() {
         ttt = null;
     }
