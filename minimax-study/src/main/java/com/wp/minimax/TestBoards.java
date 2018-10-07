@@ -12,6 +12,8 @@ public class TestBoards {
     public static final int[][] TB6 = {{-1, -1, 1}, {-1, -1, 1}, {-1, -1, 1}};
     public static final int[][] TB7 = {{1, -1, -1}, {-1, 1, -1}, {-1, -1, 1}};
     public static final int[][] TB8 = {{-1, -1, 1}, {-1, 1, -1}, {1, -1, -1}};
+    public static final int[][] TB_POPULATED = {{0, 1, 0}, {1, 0, 1}, {0, 1, 0}};
+    public static final int[][] TB_NOT_POPULATED = {{0, 1, 0}, {1, 0, 1}, {0, 1, -1}};
     
     public TestBoards() {
 

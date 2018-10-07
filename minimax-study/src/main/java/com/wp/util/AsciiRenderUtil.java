@@ -54,4 +54,22 @@ public class AsciiRenderUtil {
         return this.getTopLine(endWithNewLine);
     }
 
+    public char getOpponent(char player) {
+        if(player == TicTacToeConst.PLAYER_O_LABEL) {
+            return TicTacToeConst.PLAYER_X_LABEL;
+        }
+        return TicTacToeConst.PLAYER_O_LABEL;
+    }
+
+    public boolean boardIsPopulated(int[][] board) {
+        for (int i = 0; i < board.length; i++) {
+            for(int j=0; j<board[i].length; j++) {
+                if(board[i][j] == TicTacToeConst.AVAILABLE_SPOT_IN_VAL) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }

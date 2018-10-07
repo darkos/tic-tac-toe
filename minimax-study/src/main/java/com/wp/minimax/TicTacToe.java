@@ -1,9 +1,14 @@
 package com.wp.minimax;
 
+import java.io.IOException;
+
+import com.wp.util.AsciiRenderUtil;
+
 public class TicTacToe {
 
     private TestBoards tb;
     private int[][] board;
+    private AsciiRenderUtil util;
 
     public TicTacToe() {
         initGame();
@@ -19,8 +24,9 @@ public class TicTacToe {
      * This method is called from the constructor to initialize the game.
      */
     public void initGame() {
-        this.setBoard(tb.getEmptyBoard());
         tb = new TestBoards();
+        util = new AsciiRenderUtil();
+        this.setBoard(tb.getEmptyBoard());
     }
 
     /**
@@ -60,14 +66,58 @@ public class TicTacToe {
         return false;
     }
 
-    public int getScore(char opponent, int[][] boardNow) {
-        int player = this.getPlayerIntVal(opponent);
+    /**
+     * Player 'x' is concidered to be human
+     * @param playerToMakeAMove
+     * @param boardNow
+     * @return
+     */
+    public int getScore(char playerToMakeAMove, int[][] boardNow) {
+        int player = this.getPlayerIntVal(playerToMakeAMove);
         int score = -1;
         for(int x=0; x<boardNow.length; x++) {
-            int[] row = boardNow[x];
-            for(int y=0; y<row.length; y++) {
+            for(int y=0; y<boardNow[x].length; y++) {
                 if(boardNow[x][y] == TicTacToeConst.AVAILABLE_SPOT_IN_VAL) {
-                    int[][] newBoard = 
+                    int[][] newBoard = tb.cloneBoard(boardNow);
+                    newBoard[x][y] = player;
+                    // System.out.println("field:" + x + "," + y);
+                    // String asciiBoard = util.getAsciiBoard(newBoard);
+                    // System.out.println(asciiBoard);
+                    // try {
+                    //     char inp = (char)System.in.read();
+                    //     if (inp == 'x') {
+                    //         System.exit(0);
+                    //     }
+                    // } catch(IOException exc) {
+                    //     System.exit(0);
+                    // }
+
+                    if(playerIsWinning(playerToMakeAMove, newBoard)) {
+                        // System.out.println("WINNING - field:" + x + "," + y);
+                        // asciiBoard = util.getAsciiBoard(newBoard);
+                        // System.out.println(asciiBoard);
+
+                        // try {
+                        //     char inp = (char)System.in.read();
+                        //     if (inp == 'x') {
+                        //         System.exit(0);
+                        //     }
+                        // } catch(IOException exc) {
+                        //     System.exit(0);
+                        // }
+
+                        if(playerToMakeAMove == TicTacToeConst.PLAYER_X_LABEL) {
+                            return 10;
+                        }
+                        else {
+                            return -10;
+                        }
+                    }
+                    if(util.boardIsPopulated(newBoard)) {
+                        return 0;
+                    }
+                    int tmpScore = getScore(util.getOpponent(playerToMakeAMove), newBoard);
+                    System.out.println("tmpScore:" + tmpScore);
                 }
             }
         }

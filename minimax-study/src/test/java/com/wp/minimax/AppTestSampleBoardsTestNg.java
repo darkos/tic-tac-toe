@@ -2,6 +2,9 @@ package com.wp.minimax;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import com.wp.util.AsciiRenderUtil;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.*;
@@ -9,16 +12,22 @@ import org.testng.annotations.*;
 
 public class AppTestSampleBoardsTestNg {
 
-    TicTacToe ttt;
+    private TicTacToe ttt;
+    private TestBoards tb;
+    private AsciiRenderUtil util;
 
     @BeforeTest
     public void setUp() {
         ttt = new TicTacToe();
+        tb = new TestBoards();
+        util = new AsciiRenderUtil();
     }
 
     @AfterTest
     public void clean() {
         ttt = null;
+        tb = null;
+        util = null;
     }
 
     @Test
@@ -77,7 +86,6 @@ public class AppTestSampleBoardsTestNg {
 
     @Test
     public void boardsAreEqualTest() {
-        TestBoards tb = new TestBoards();
         int[][] b1 = tb.getEmptyBoard();
         int[][] b2 = tb.getEmptyBoard();
         boolean areEqual = tb.boardsAreEqual(b1, b2);
@@ -86,7 +94,6 @@ public class AppTestSampleBoardsTestNg {
 
     @Test
     public void boardsAreNotEqualTest() {
-        TestBoards tb = new TestBoards();
         int[][] b1 = tb.getEmptyBoard();
         int[][] b2 = tb.getEmptyBoard();
         b2[1][1] = 1;
@@ -95,12 +102,38 @@ public class AppTestSampleBoardsTestNg {
     }
 
     @Test
-    public void testShallowCopyBoard() {
-        TestBoards tb = new TestBoards();
+    public void shallowCopyBoardTest() {
         int[][] b1 = tb.getEmptyBoard();
         int[][] b2 = b1.clone();
+        b2[1][1] = TicTacToeConst.PLAYER_O_INT_VAL;
         boolean areEqual = tb.boardsAreEqual(b1, b2);
         assertTrue(areEqual);
+    }
+
+    @Test
+    public void deepCopyBoardTest() {
+        int[][] b1 = tb.getEmptyBoard();
+        int[][] b2 = tb.cloneBoard(b1);
+        b2[1][1] = TicTacToeConst.PLAYER_O_INT_VAL;
+        boolean areEqual = tb.boardsAreEqual(b1, b2);
+        assertFalse(areEqual);
+    }
+
+    @Test
+    public void boardIsPopulatedTest() {
+        assertTrue(util.boardIsPopulated(TestBoards.TB_POPULATED));
+    }
+
+    @Test
+    public void boardIsNotPopulatedTest() {
+        assertFalse(util.boardIsPopulated(TestBoards.TB_NOT_POPULATED));
+    }
+
+    @Test
+    public void getOpponentTrueTest() {
+        char opponent = 'o';
+        assertTrue(opponent == util.getOpponent(TicTacToeConst.PLAYER_X_LABEL));
+        assertFalse(opponent == util.getOpponent(opponent));
     }
 
 
