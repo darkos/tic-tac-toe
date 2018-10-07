@@ -75,5 +75,33 @@ public class AppTestSampleBoardsTestNg {
         assertFalse(isWinning);
     }
 
+    @Test
+    public void boardsAreEqualTest() {
+        TestBoards tb = new TestBoards();
+        int[][] b1 = tb.getEmptyBoard();
+        int[][] b2 = tb.getEmptyBoard();
+        boolean areEqual = tb.boardsAreEqual(b1, b2);
+        assertTrue(areEqual);
+    }
+
+    @Test
+    public void boardsAreNotEqualTest() {
+        TestBoards tb = new TestBoards();
+        int[][] b1 = tb.getEmptyBoard();
+        int[][] b2 = tb.getEmptyBoard();
+        b2[1][1] = 1;
+        boolean areEqual = tb.boardsAreEqual(b1, b2);
+        assertFalse(areEqual);
+    }
+
+    @Test
+    public void testShallowCopyBoard() {
+        TestBoards tb = new TestBoards();
+        int[][] b1 = tb.getEmptyBoard();
+        int[][] b2 = b1.clone();
+        boolean areEqual = tb.boardsAreEqual(b1, b2);
+        assertTrue(areEqual);
+    }
+
 
 }
