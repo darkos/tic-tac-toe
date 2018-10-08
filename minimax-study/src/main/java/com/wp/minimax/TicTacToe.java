@@ -1,6 +1,6 @@
 package com.wp.minimax;
 
-import java.io.IOException;
+import java.util.List;
 
 import com.wp.util.AsciiRenderUtil;
 
@@ -13,12 +13,6 @@ public class TicTacToe {
     public TicTacToe() {
         initGame();
     }
-
-    
-
-    
-
-    
 
     /**
      * This method is called from the constructor to initialize the game.
@@ -42,7 +36,6 @@ public class TicTacToe {
     private void setBoard(int[][] board) {
         this.board = board;
     }
-    
 
     public int getPlayerIntVal(char player) {
         if (player == TicTacToeConst.PLAYER_O_LABEL) {
@@ -68,60 +61,37 @@ public class TicTacToe {
 
     /**
      * Player 'x' is concidered to be human
+     * 
      * @param playerToMakeAMove
      * @param boardNow
      * @return
      */
-    public int getScore(char playerToMakeAMove, int[][] boardNow) {
+    public Move[] getMoves(char playerToMakeAMove, int[][] boardNow, List<int[]> spots) {
         int player = this.getPlayerIntVal(playerToMakeAMove);
         int score = -1;
-        for(int x=0; x<boardNow.length; x++) {
-            for(int y=0; y<boardNow[x].length; y++) {
-                if(boardNow[x][y] == TicTacToeConst.AVAILABLE_SPOT_IN_VAL) {
-                    int[][] newBoard = tb.cloneBoard(boardNow);
-                    newBoard[x][y] = player;
-                    // System.out.println("field:" + x + "," + y);
-                    // String asciiBoard = util.getAsciiBoard(newBoard);
-                    // System.out.println(asciiBoard);
-                    // try {
-                    //     char inp = (char)System.in.read();
-                    //     if (inp == 'x') {
-                    //         System.exit(0);
-                    //     }
-                    // } catch(IOException exc) {
-                    //     System.exit(0);
-                    // }
 
-                    if(playerIsWinning(playerToMakeAMove, newBoard)) {
-                        // System.out.println("WINNING - field:" + x + "," + y);
-                        // asciiBoard = util.getAsciiBoard(newBoard);
-                        // System.out.println(asciiBoard);
+        Move[] moves = new Move[spots.size()];
 
-                        // try {
-                        //     char inp = (char)System.in.read();
-                        //     if (inp == 'x') {
-                        //         System.exit(0);
-                        //     }
-                        // } catch(IOException exc) {
-                        //     System.exit(0);
-                        // }
-
-                        if(playerToMakeAMove == TicTacToeConst.PLAYER_X_LABEL) {
-                            return 10;
-                        }
-                        else {
-                            return -10;
-                        }
-                    }
-                    if(util.boardIsPopulated(newBoard)) {
-                        return 0;
-                    }
-                    int tmpScore = getScore(util.getOpponent(playerToMakeAMove), newBoard);
-                    System.out.println("tmpScore:" + tmpScore);
+        for (int i=0; i<spots.size(); i++) {
+            int[] spot = spots.get(i);
+            moves[i] = new Move();
+            moves[i].setSpot(spot);
+            moves[i].setPlayer(playerToMakeAMove);
+            int[][] newBoard = tb.cloneBoard(boardNow);
+            newBoard[spot[0]][spot[1]] = player;
+            if (playerIsWinning(playerToMakeAMove, newBoard)) {
+                if (playerToMakeAMove == TicTacToeConst.PLAYER_X_LABEL) {
+                    return 10;
+                } else {
+                    return -10;
                 }
             }
+            if (util.boardIsPopulated(newBoard)) {
+                return 0;
+            }
         }
-        return score;
+
+        return moves;
     }
 
 }

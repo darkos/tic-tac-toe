@@ -3,11 +3,13 @@ package com.wp.minimax;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.util.List;
+
 import com.wp.util.AsciiRenderUtil;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 
 public class AppTestSampleBoardsTestNg {
@@ -134,6 +136,18 @@ public class AppTestSampleBoardsTestNg {
         char opponent = 'o';
         assertTrue(opponent == util.getOpponent(TicTacToeConst.PLAYER_X_LABEL));
         assertFalse(opponent == util.getOpponent(opponent));
+    }
+
+    @Test
+    public void getAvailableSpotsTest() {
+        List<int[]> availSpots = util.getAvailableSpots(TestBoards.TEST_BOARD);
+        assertTrue(availSpots.size() == 3);
+        int[] a1 = availSpots.get(0);
+        int[] a2 = availSpots.get(1);
+        int[] a3 = availSpots.get(2);
+        assertTrue(a1[0] == 0 && a1[1] == 1);
+        assertTrue(a2[0] == 1 && a2[1] == 1);
+        assertTrue(a3[0] == 2 && a3[1] == 0);
     }
 
 

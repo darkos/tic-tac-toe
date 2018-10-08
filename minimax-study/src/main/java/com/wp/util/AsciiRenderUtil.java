@@ -1,5 +1,8 @@
 package com.wp.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.wp.minimax.TicTacToeConst;
 
 public class AsciiRenderUtil {
@@ -70,6 +73,18 @@ public class AsciiRenderUtil {
             }
         }
         return true;
+    }
+
+    public List<int[]> getAvailableSpots(int[][] board) {
+        List<int[]> availableSpots = new ArrayList<int[]>();
+        for (int i = 0; i < board.length; i++) {
+            for(int j=0; j<board[i].length; j++) {
+                if(board[i][j] == TicTacToeConst.AVAILABLE_SPOT_IN_VAL) {
+                    availableSpots.add(new int[]{i,j});
+                }
+            }
+        }
+        return availableSpots;
     }
 
 }

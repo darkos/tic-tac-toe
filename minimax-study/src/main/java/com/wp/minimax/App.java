@@ -1,5 +1,7 @@
 package com.wp.minimax;
 
+import java.util.List;
+
 import com.wp.util.AsciiRenderUtil;
 
 /**
@@ -12,13 +14,18 @@ public class App
     {
         AsciiRenderUtil util = new AsciiRenderUtil();
         TestBoards tb = new TestBoards();
+        List<int[]> availSpots = util.getAvailableSpots(TestBoards.TEST_BOARD);
+        // System.out.println(availSpots);
+        for(int[] spot : availSpots) {
+            System.out.println(spot[0] + "," + spot[1]);
+        }
 
-        TicTacToe ttt = new TicTacToe();
-        int score = ttt.getScore(TicTacToeConst.PLAYER_X_LABEL, tb.getEmptyBoard());
-        System.out.println("score:" + score);
+        // TicTacToe ttt = new TicTacToe();
+        // int score = ttt.getScore(TicTacToeConst.PLAYER_X_LABEL, tb.getEmptyBoard());
+        // System.out.println("score:" + score);
 
-        // String board = util.getAsciiBoard(TestBoards.TEST_BOARD);
-        // System.out.println(board);
+        String board = util.getAsciiBoard(TestBoards.TEST_BOARD);
+        System.out.println(board);
         // board = util.getAsciiBoard(TestBoards.TB1);
         // System.out.println(board);
         // board = util.getAsciiBoard(TestBoards.TB2);
