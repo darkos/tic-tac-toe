@@ -66,7 +66,7 @@ public class TicTacToe {
      * @param boardNow
      * @return
      */
-    public Move[] getMoves(char playerToMakeAMove, int[][] boardNow, List<int[]> spots) {
+    public Move getMaxMove(char playerToMakeAMove, int[][] boardNow, List<int[]> spots) {
         int player = this.getPlayerIntVal(playerToMakeAMove);
         int score = -1;
 
@@ -81,13 +81,13 @@ public class TicTacToe {
             newBoard[spot[0]][spot[1]] = player;
             if (playerIsWinning(playerToMakeAMove, newBoard)) {
                 if (playerToMakeAMove == TicTacToeConst.PLAYER_X_LABEL) {
-                    return 10;
+                    moves[i].setScore(10);
                 } else {
-                    return -10;
+                    moves[i].setScore(-10);
                 }
             }
             if (util.boardIsPopulated(newBoard)) {
-                return 0;
+                moves[i].setScore(0);
             }
         }
 
