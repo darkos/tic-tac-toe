@@ -9,8 +9,9 @@ public class TicTacToe {
 	}
 	
 	public static void main(String[] args) {
-		int[][] cells1 = {{1, 0, 0}, {-1, -1, -1}, {1, -1, -1}};
+//		int[][] cells1 = {{1, 0, 0}, {-1, -1, -1}, {1, -1, -1}};
 //		int[][] cells2 = {{0, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
+		int[][] cells1 = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
 		Board b1 = new Board(cells1);
 //		Board b2 = new Board(cells2);
 		GameAi ai = new GameAi();
